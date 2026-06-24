@@ -44,4 +44,4 @@ Track the M1 Next.js admin shell and future admin implementation progress.
 
 ## Next Action
 
-Merge M1 foundation or record the PR fallback; expand the detailed admin plan after M2 foundations are approved and created.
+Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, merge M1 after review/checks, then expand the detailed admin plan only after M2 foundations are approved and created.

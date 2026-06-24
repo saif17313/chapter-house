@@ -33,7 +33,8 @@ Create the Flutter application shell, routing placeholder, dependency baseline, 
 
 ## Remaining Tasks
 
-- [ ] Merge M1 branch or record PR fallback.
+- [x] M1 branch pushed and PR fallback recorded.
+- [ ] Merge M1 PR manually.
 - [ ] Stop before M2 database/contracts implementation.
 
 ## Changed Mobile Files
@@ -119,4 +120,4 @@ Create the Flutter application shell, routing placeholder, dependency baseline, 
 
 ## Next Action
 
-Merge M1 foundation or record the PR fallback, then stop before M2.
+Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, merge M1 after review/checks, then stop before M2.

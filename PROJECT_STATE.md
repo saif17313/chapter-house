@@ -5,7 +5,7 @@
 - Project name: Chapter House
 - Repository: `D:\Projects\E-Book App\chapter-house`
 - Current branch: `m1-foundation`
-- Last known good commit: `819dca443e700681474189e671662a1efbabc236`
+- Last known good commit: `27e832e33e9d7f6d5e2b6dc4e752ef2a14e0d437`
 - Last updated: `2026-06-25T03:17:45+06:00`
 - Updated by: Codex
 
@@ -14,7 +14,7 @@
 - Active application: global foundation, mobile, admin, and shared backend
 - Active phase: M1 - Monorepo and engineering foundation
 - Phase status: READY_FOR_REVIEW
-- Current objective: Review and merge the M1 foundation branch, then stop before M2.
+- Current objective: Open and merge the M1 foundation PR manually, then stop before M2.
 - Approval received: Yes, user approved the next work and required branch/commit/PR/merge workflow.
 - Next approval required: User approval to begin M2 after M1 is completed and merged.
 
@@ -71,11 +71,14 @@
 
 ## Work In Progress
 
-- [ ] M1 commit, PR creation, and merge workflow.
+- [x] M1 implementation commit created as `27e832e33e9d7f6d5e2b6dc4e752ef2a14e0d437`.
+- [x] Branch `m1-foundation` pushed to `origin/m1-foundation`.
+- [ ] PR creation and merge are blocked on missing GitHub automation.
 
 ## Remaining Work
 
-- [ ] M1 PR is created and merged, or blocker/fallback is recorded.
+- [x] M1 PR fallback URL recorded.
+- [ ] M1 PR is created and merged manually.
 - [ ] User approves or rejects starting M2.
 
 ## Verification
@@ -93,6 +96,10 @@
 | `flutter test`                              | Passed                             | 2026-06-25 | Mobile bootstrap widget test passed.                                                                           |
 | `flutter build apk --debug`                 | Passed                             | 2026-06-25 | Built `build\app\outputs\flutter-apk\app-debug.apk` after disabling Kotlin incremental compilation on Windows. |
 | `git diff --check`                          | Passed                             | 2026-06-25 | No whitespace errors reported before final project-memory updates.                                             |
+| `git push -u origin m1-foundation`          | Passed                             | 2026-06-25 | Branch pushed; GitHub returned PR URL `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`.     |
+| `gh --version`                              | Failed                             | 2026-06-25 | GitHub CLI is not installed or not on PATH.                                                                    |
+| `hub --version`                             | Failed                             | 2026-06-25 | Hub CLI is not installed or not on PATH.                                                                       |
+| `GH_TOKEN`/`GITHUB_TOKEN` check             | Failed                             | 2026-06-25 | No GitHub API token is present in the environment.                                                             |
 | `docker info --format '{{.ServerVersion}}'` | Failed                             | 2026-06-25 | Docker Desktop daemon is not running.                                                                          |
 | `npx supabase status`                       | Failed                             | 2026-06-25 | Supabase local stack cannot be inspected while Docker daemon is stopped.                                       |
 | `flutter build ios --debug --no-codesign`   | Failed                             | 2026-06-25 | Windows Flutter toolchain did not expose iOS build options.                                                    |
@@ -128,11 +135,11 @@
 
 ## Blockers
 
-| Blocker                                                                     | Required action                                                                                          | Responsible party   |
-| --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------- |
-| Supabase local stack cannot run until Docker Desktop daemon is started.     | Start Docker Desktop, then run `npx supabase start`.                                                     | User/Codex in M1/M2 |
-| Automated PR creation/merge may be unavailable without GitHub CLI or token. | Install/authenticate `gh`, provide `GH_TOKEN`, or use manual PR fallback URL.                            | User/Codex          |
-| External services are not configured.                                       | Provide or approve setup for Supabase, OAuth providers, payment channels, signing, hosting, and workers. | User                |
+| Blocker                                                                 | Required action                                                                                                                        | Responsible party   |
+| ----------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| Supabase local stack cannot run until Docker Desktop daemon is started. | Start Docker Desktop, then run `npx supabase start`.                                                                                   | User/Codex in M1/M2 |
+| Automated PR creation/merge is unavailable without GitHub CLI or token. | Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, create the PR against `main`, and merge after review/checks. | User                |
+| External services are not configured.                                   | Provide or approve setup for Supabase, OAuth providers, payment channels, signing, hosting, and workers.                               | User                |
 
 ## External Configuration
 
@@ -146,13 +153,13 @@
 
 ## Next Exact Action
 
-Commit and push branch `m1-foundation`, create/merge PR if tooling permits, otherwise record manual PR fallback, then stop before M2.
+Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, create the PR against `main`, merge it after review/checks, then approve or reject M2.
 
 ## Session Handoff
 
 - What was attempted: Implemented M1 monorepo and engineering foundation on `m1-foundation`.
 - What succeeded: Root workspace, Flutter shell, Next admin shell, contracts skeleton, Supabase config, CI, env templates, worker placeholders, branch workflow docs, and verification were completed.
-- What failed: Docker daemon was not running, so Supabase local stack status/start was not verified. iOS build is unavailable from this Windows Flutter toolchain. GitHub CLI/token are unavailable, so PR automation may need manual fallback.
+- What failed: Docker daemon was not running, so Supabase local stack status/start was not verified. iOS build is unavailable from this Windows Flutter toolchain. GitHub CLI/token are unavailable, so PR creation and merge require the manual URL.
 - What must be read: `AGENTS.md`, `MASTER_PLAN.md`, `PROJECT_STATE.md`, `docs/work/2026-06-25-m1-foundation.md`, and relevant app progress files.
-- Commands to continue: `git status --short --branch`, `git diff --check`, stage and commit M1, push `m1-foundation`, then create/merge PR or record fallback URL.
+- Commands to continue: Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, create and merge the PR, then return to local `main` and pull.
 - Files that must not be modified: Do not add M2 schema migrations, RLS policies, storage policies, production Edge Functions, or business feature screens until M2 or later is explicitly approved.

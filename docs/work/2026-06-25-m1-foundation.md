@@ -28,10 +28,10 @@
 - [x] Foundation files created.
 - [x] Checks run.
 - [x] Project-memory files updated.
-- [ ] Commit created.
-- [ ] Branch pushed.
-- [ ] PR created or fallback URL recorded.
-- [ ] PR merged or merge blocker recorded.
+- [x] Commit created: `27e832e33e9d7f6d5e2b6dc4e752ef2a14e0d437`.
+- [x] Branch pushed to `origin/m1-foundation`.
+- [x] PR fallback URL recorded.
+- [x] PR merge blocker recorded.
 
 ## Verification
 
@@ -49,10 +49,15 @@
 - `npx supabase status`: failed because Docker Desktop daemon is not running.
 - `flutter build ios --debug --no-codesign`: failed because this Windows Flutter toolchain does not expose iOS build options.
 - `flutter build ios --no-codesign`: failed because this Windows Flutter toolchain does not expose iOS build options.
+- `git push -u origin m1-foundation`: passed.
+- `gh --version`: failed because GitHub CLI is not installed or not on PATH.
+- `hub --version`: failed because Hub CLI is not installed or not on PATH.
+- `GH_TOKEN`/`GITHUB_TOKEN` check: failed because no GitHub API token is present.
 
 ## Handoff
 
-- M1 foundation is ready for commit and PR.
+- M1 foundation implementation commit is pushed.
 - M2 must not begin until explicitly approved.
-- PR automation may be blocked because `gh` is missing and no `GH_TOKEN` or `GITHUB_TOKEN` was present at session start.
-- If automation is blocked, use the GitHub compare URL for `m1-foundation` against `main`.
+- PR automation is blocked because `gh`/`hub` are missing and no `GH_TOKEN` or `GITHUB_TOKEN` is present.
+- Manual PR URL: `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`.
+- Create the PR against `main`, merge it after review/checks, then return local `main` to the merged state.
