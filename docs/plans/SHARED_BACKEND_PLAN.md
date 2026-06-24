@@ -2,10 +2,10 @@
 
 ## Status
 
-- Active backend phase: M0 - Discovery and planning
+- Active backend phase: M1 - Monorepo and engineering foundation
 - Phase status: READY_FOR_REVIEW
-- Current implementation state: no migrations, Supabase config, Edge Functions, workers, or generated contracts exist yet.
-- Next approval required: approve M1 before creating backend scaffolding or local Supabase files.
+- Current implementation state: Supabase local config was generated with `npx supabase init`; no migrations, RLS policies, storage policies, Edge Functions, or schema seed data exist yet.
+- Next approval required: approve M2 before creating canonical database, RLS, storage policies, or generated contracts.
 
 ## Objective
 
@@ -33,38 +33,38 @@ Design one shared Supabase backend for the Flutter customer app and Next.js admi
 
 The M2 implementation must define purpose, fields, constraints, indexes, RLS, retention, and growth expectations for the tables below. This plan records the intended responsibilities before schema creation.
 
-| Table | Purpose | Key Requirements |
-|---|---|---|
-| `profiles` | App profile linked to `auth.users`. | One row per user, no password hash, user-owned reads/updates, admin support reads. |
-| `user_settings` | Language, theme, privacy, notifications, reader defaults. | User-owned, versioned preferences, sane defaults. |
-| `user_devices` | Stable registered device metadata and public key. | Installation ID hash/HMAC, device public key, platform, status, audit timestamps. |
-| `device_sessions` | Active-device enforcement and Supabase `session_id` correlation. | One active session per user, session version, revocation reason, transactional locking. |
-| `authors`, `publishers`, `categories`, `topics` | Catalog dimensions. | Localized names/slugs, publish state, search fields, admin-only mutation. |
-| `books` | Canonical book records. | Localized metadata, ISBN, publisher, status, visibility, price display dependencies. |
-| `book_authors`, `book_categories`, `book_topics` | Many-to-many catalog joins. | Unique join constraints and indexed foreign keys. |
-| `book_files` | Protected source and encrypted file versions. | Format, version, checksums, encryption metadata, processing state, private access. |
-| `book_previews` | Preview assets separate from protected full content. | Public/private policy by preview type, localized preview metadata. |
-| `book_prices` | Authoritative current and historical BDT prices. | Effective windows, active price constraint, admin-only writes. |
-| `payment_channels` | Active bKash/Nagad manual payment instructions. | Provider, account name/number, QR asset, limits, expiry rules, localized instructions. |
-| `orders`, `order_items` | Idempotent purchase intent and book line items. | Current price snapshot, order status, idempotency key, user ownership. |
-| `payment_submissions` | Manual transaction submission and review state. | Transaction ID, sender number handling, proof path, duplicate checks, review audit. |
-| `entitlements` | Exactly-once ownership/access rights. | Unique user/book/order constraints, status, grant/revoke audit. |
-| `offline_licenses` | Device-bound offline access. | User, device, entitlement, book, file version, expiry, license version, wrapped key metadata. |
-| `reading_progress`, `bookmarks` | Reader state and annotations. | User/book/file scoping, sync timestamps, conflict strategy. |
-| `search_events` | Durable privacy-filtered search events. | Partitioning, retention, consent state, anonymous ID rotation, no raw PII exposure. |
-| `search_term_candidates` | Exact candidate dictionary for suggestions. | Normalized/display terms, locale, source, safety status, admin approval where needed. |
-| `search_sketch_configs` | Count-Min Sketch definitions. | Width, depth, namespace, locale, hash seed version, counter type, active status. |
-| `search_sketch_snapshots` | Periodic sketch state, not per-counter updates. | Window type/start/end, snapshot location/binary, checksum, status, total updates. |
-| `search_suggestion_metrics` | Quality and impression/click metrics. | Aggregated, privacy-safe, retention policy. |
-| `book_events` | Catalog/reader/purchase events for analytics and recommendations. | Batched, privacy-aware, partitioned if high volume. |
-| `user_topic_affinity` | Personalization signals. | User-owned, decayed scores, topic IDs, opt-out behavior. |
-| `theme_presets` | Remote design-token schema and presets. | Versioned tokens, validation status, bundled fallback compatibility. |
-| `ui_translations` | Dynamic localized strings. | Locale, namespace, key, version, fallback, publish state. |
-| `home_sections`, `home_section_books`, `banners`, `content_pages` | Configurable store and public content. | Localized content, publish windows, admin-only writes, public reads when published. |
-| `app_config` | Remote app configuration. | Versioned keys, typed values, safe defaults, rollout targeting later. |
-| `content_processing_jobs` | Worker queue and processing status. | Idempotent job keys, retry state, error details, auditability. |
-| `notifications` | User notification records. | User-scoped reads, delivery state, localized content references. |
-| `audit_logs` | Security and operational audit events. | Append-only, privileged writes, retention, redacted sensitive values. |
+| Table                                                             | Purpose                                                           | Key Requirements                                                                              |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `profiles`                                                        | App profile linked to `auth.users`.                               | One row per user, no password hash, user-owned reads/updates, admin support reads.            |
+| `user_settings`                                                   | Language, theme, privacy, notifications, reader defaults.         | User-owned, versioned preferences, sane defaults.                                             |
+| `user_devices`                                                    | Stable registered device metadata and public key.                 | Installation ID hash/HMAC, device public key, platform, status, audit timestamps.             |
+| `device_sessions`                                                 | Active-device enforcement and Supabase `session_id` correlation.  | One active session per user, session version, revocation reason, transactional locking.       |
+| `authors`, `publishers`, `categories`, `topics`                   | Catalog dimensions.                                               | Localized names/slugs, publish state, search fields, admin-only mutation.                     |
+| `books`                                                           | Canonical book records.                                           | Localized metadata, ISBN, publisher, status, visibility, price display dependencies.          |
+| `book_authors`, `book_categories`, `book_topics`                  | Many-to-many catalog joins.                                       | Unique join constraints and indexed foreign keys.                                             |
+| `book_files`                                                      | Protected source and encrypted file versions.                     | Format, version, checksums, encryption metadata, processing state, private access.            |
+| `book_previews`                                                   | Preview assets separate from protected full content.              | Public/private policy by preview type, localized preview metadata.                            |
+| `book_prices`                                                     | Authoritative current and historical BDT prices.                  | Effective windows, active price constraint, admin-only writes.                                |
+| `payment_channels`                                                | Active bKash/Nagad manual payment instructions.                   | Provider, account name/number, QR asset, limits, expiry rules, localized instructions.        |
+| `orders`, `order_items`                                           | Idempotent purchase intent and book line items.                   | Current price snapshot, order status, idempotency key, user ownership.                        |
+| `payment_submissions`                                             | Manual transaction submission and review state.                   | Transaction ID, sender number handling, proof path, duplicate checks, review audit.           |
+| `entitlements`                                                    | Exactly-once ownership/access rights.                             | Unique user/book/order constraints, status, grant/revoke audit.                               |
+| `offline_licenses`                                                | Device-bound offline access.                                      | User, device, entitlement, book, file version, expiry, license version, wrapped key metadata. |
+| `reading_progress`, `bookmarks`                                   | Reader state and annotations.                                     | User/book/file scoping, sync timestamps, conflict strategy.                                   |
+| `search_events`                                                   | Durable privacy-filtered search events.                           | Partitioning, retention, consent state, anonymous ID rotation, no raw PII exposure.           |
+| `search_term_candidates`                                          | Exact candidate dictionary for suggestions.                       | Normalized/display terms, locale, source, safety status, admin approval where needed.         |
+| `search_sketch_configs`                                           | Count-Min Sketch definitions.                                     | Width, depth, namespace, locale, hash seed version, counter type, active status.              |
+| `search_sketch_snapshots`                                         | Periodic sketch state, not per-counter updates.                   | Window type/start/end, snapshot location/binary, checksum, status, total updates.             |
+| `search_suggestion_metrics`                                       | Quality and impression/click metrics.                             | Aggregated, privacy-safe, retention policy.                                                   |
+| `book_events`                                                     | Catalog/reader/purchase events for analytics and recommendations. | Batched, privacy-aware, partitioned if high volume.                                           |
+| `user_topic_affinity`                                             | Personalization signals.                                          | User-owned, decayed scores, topic IDs, opt-out behavior.                                      |
+| `theme_presets`                                                   | Remote design-token schema and presets.                           | Versioned tokens, validation status, bundled fallback compatibility.                          |
+| `ui_translations`                                                 | Dynamic localized strings.                                        | Locale, namespace, key, version, fallback, publish state.                                     |
+| `home_sections`, `home_section_books`, `banners`, `content_pages` | Configurable store and public content.                            | Localized content, publish windows, admin-only writes, public reads when published.           |
+| `app_config`                                                      | Remote app configuration.                                         | Versioned keys, typed values, safe defaults, rollout targeting later.                         |
+| `content_processing_jobs`                                         | Worker queue and processing status.                               | Idempotent job keys, retry state, error details, auditability.                                |
+| `notifications`                                                   | User notification records.                                        | User-scoped reads, delivery state, localized content references.                              |
+| `audit_logs`                                                      | Security and operational audit events.                            | Append-only, privileged writes, retention, redacted sensitive values.                         |
 
 ## RLS and Authorization Plan
 
@@ -276,3 +276,11 @@ Required test categories:
 - This backend plan exists.
 - No migrations, Supabase config, Edge Functions, workers, storage policies, or deployment files have been created.
 - Backend implementation is blocked on explicit user approval for M1.
+
+## M1 Backend Foundation Status
+
+- `supabase/config.toml` generated by Supabase CLI `2.107.0` through `npx supabase init`.
+- `supabase/seed.sql` exists as an empty placeholder only.
+- `supabase/functions` and `supabase/migrations` are placeholder directories only.
+- Docker Desktop daemon was not running, so `npx supabase status` failed and local stack start/status remains unverified.
+- M2 remains blocked until explicit approval.

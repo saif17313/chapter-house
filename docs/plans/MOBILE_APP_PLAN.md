@@ -2,10 +2,10 @@
 
 ## Status
 
-- Active mobile phase: M0 - Discovery and planning
+- Active mobile phase: M1 - Monorepo and engineering foundation
 - Phase status: READY_FOR_REVIEW
-- Current implementation state: no Flutter application code exists yet.
-- Next approval required: approve M1 before creating the Flutter shell.
+- Current implementation state: Flutter shell, routing placeholder, dependencies, env template, Android/iOS scaffold, and smoke test exist.
+- Next approval required: approve M2 before creating canonical database, RLS, storage policies, or generated contracts.
 
 ## Objective
 
@@ -87,22 +87,22 @@ Each theme requires light and dark variants, reader background, reader text, pri
 
 ## Mobile Phase Plan
 
-| Phase | Status | Mobile Objective | Included Scope | Explicit Exclusions | Required Evidence |
-|---|---|---|---|---|---|
-| M0 | READY_FOR_REVIEW | Plan app and initialize memory files. | Mobile plan, progress tracker, security constraints, phase gates. | Flutter code. | Requested Markdown files and git status. |
-| M1 | NOT_STARTED | Create Flutter shell and engineering foundation. | App project, package structure, routing placeholder, test setup, CI hooks, env templates. | Business features. | `flutter analyze`, `flutter test`, debug build smoke when feasible. |
-| M2 | NOT_STARTED | Consume shared contracts from canonical backend. | Generated types, DTO imports, API client boundaries. | Handwritten duplicate contracts. | Contract drift tests. |
-| M3 | NOT_STARTED | Implement premium design system and localization. | Tokens, five themes, l10n pipeline, shared states, responsive layout foundation. | Auth/catalog/payments. | Widget/golden/contrast/l10n checks. |
-| M4 | NOT_STARTED | Implement auth, JWT session handling, profile, devices. | Email/password, OAuth, deep links, secure storage, device activation, profile settings. | Catalog purchase flow. | Auth flow tests, token redaction, device-session tests. |
-| M5 | NOT_STARTED | Implement public catalog and previews. | Home, catalog browse, details, previews, public pages, pagination, caching. | CMS suggestions and payments. | Widget/API/performance/localization tests. |
-| M6 | NOT_STARTED | Implement search and recommendation UI integration. | Search UX, suggestions, filters, history, event batching, privacy consent. | Worker internals except integration contracts. | Search UX tests, privacy filtering evidence. |
-| M7 | NOT_STARTED | Implement manual payment customer flow. | Orders, bKash/Nagad instructions, transaction submission, proof upload, status. | Automated provider integration. | Payment flow tests, idempotency scenarios. |
-| M8 | NOT_STARTED | Integrate entitlements and content-processing outputs. | Library entitlement sync and preview/content version awareness. | Full protected reader. | Entitlement sync tests. |
-| M9 | NOT_STARTED | Implement secure downloads and PDF reader. | Device-bound license use, encrypted downloads, PDF reader, progress, screen controls. | EPUB reader. | Platform checks, interrupted download tests, revocation tests. |
-| M10 | NOT_STARTED | Implement EPUB and complete offline workflow. | EPUB reader, settings, bookmarks, expiry, revocation, device-switch behavior. | Major new commerce features. | EPUB/offline/corruption/expiry tests. |
-| M11 | NOT_STARTED | Finish settings, accessibility, tablet support, polish. | Privacy, notifications, complete settings, a11y, tablet, animation/performance. | New backend features. | Accessibility audit, tablet checks, performance notes. |
-| M12 | NOT_STARTED | Support security and scale validation. | Mobile load behavior, token review, offline attack review, telemetry validation. | Scope expansion. | Security and performance evidence. |
-| M13 | NOT_STARTED | Prepare mobile release. | E2E, signing docs, release checklist, rollback checklist. | New features. | Build/signing/staging evidence. |
+| Phase | Status           | Mobile Objective                                        | Included Scope                                                                            | Explicit Exclusions                            | Required Evidence                                                   |
+| ----- | ---------------- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------- |
+| M0    | READY_FOR_REVIEW | Plan app and initialize memory files.                   | Mobile plan, progress tracker, security constraints, phase gates.                         | Flutter code.                                  | Requested Markdown files and git status.                            |
+| M1    | NOT_STARTED      | Create Flutter shell and engineering foundation.        | App project, package structure, routing placeholder, test setup, CI hooks, env templates. | Business features.                             | `flutter analyze`, `flutter test`, debug build smoke when feasible. |
+| M2    | NOT_STARTED      | Consume shared contracts from canonical backend.        | Generated types, DTO imports, API client boundaries.                                      | Handwritten duplicate contracts.               | Contract drift tests.                                               |
+| M3    | NOT_STARTED      | Implement premium design system and localization.       | Tokens, five themes, l10n pipeline, shared states, responsive layout foundation.          | Auth/catalog/payments.                         | Widget/golden/contrast/l10n checks.                                 |
+| M4    | NOT_STARTED      | Implement auth, JWT session handling, profile, devices. | Email/password, OAuth, deep links, secure storage, device activation, profile settings.   | Catalog purchase flow.                         | Auth flow tests, token redaction, device-session tests.             |
+| M5    | NOT_STARTED      | Implement public catalog and previews.                  | Home, catalog browse, details, previews, public pages, pagination, caching.               | CMS suggestions and payments.                  | Widget/API/performance/localization tests.                          |
+| M6    | NOT_STARTED      | Implement search and recommendation UI integration.     | Search UX, suggestions, filters, history, event batching, privacy consent.                | Worker internals except integration contracts. | Search UX tests, privacy filtering evidence.                        |
+| M7    | NOT_STARTED      | Implement manual payment customer flow.                 | Orders, bKash/Nagad instructions, transaction submission, proof upload, status.           | Automated provider integration.                | Payment flow tests, idempotency scenarios.                          |
+| M8    | NOT_STARTED      | Integrate entitlements and content-processing outputs.  | Library entitlement sync and preview/content version awareness.                           | Full protected reader.                         | Entitlement sync tests.                                             |
+| M9    | NOT_STARTED      | Implement secure downloads and PDF reader.              | Device-bound license use, encrypted downloads, PDF reader, progress, screen controls.     | EPUB reader.                                   | Platform checks, interrupted download tests, revocation tests.      |
+| M10   | NOT_STARTED      | Implement EPUB and complete offline workflow.           | EPUB reader, settings, bookmarks, expiry, revocation, device-switch behavior.             | Major new commerce features.                   | EPUB/offline/corruption/expiry tests.                               |
+| M11   | NOT_STARTED      | Finish settings, accessibility, tablet support, polish. | Privacy, notifications, complete settings, a11y, tablet, animation/performance.           | New backend features.                          | Accessibility audit, tablet checks, performance notes.              |
+| M12   | NOT_STARTED      | Support security and scale validation.                  | Mobile load behavior, token review, offline attack review, telemetry validation.          | Scope expansion.                               | Security and performance evidence.                                  |
+| M13   | NOT_STARTED      | Prepare mobile release.                                 | E2E, signing docs, release checklist, rollback checklist.                                 | New features.                                  | Build/signing/staging evidence.                                     |
 
 ## API Dependencies
 

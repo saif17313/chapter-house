@@ -21,6 +21,16 @@ Then inspect:
 
 Before making changes, record the session objective, expected file areas, and phase scope in the relevant progress file.
 
+## Branch and PR Workflow
+
+- Use a dedicated branch for every feature, phase, fix, or focused work item after the initial repository baseline.
+- Branch names should be short and descriptive, for example `m1-foundation` or `fix-auth-deep-links`.
+- Do not commit unrelated changes together.
+- Before committing, run relevant checks and update project-memory files with results.
+- Push the branch, create a pull request against `main`, merge it after checks/review requirements are satisfied, then return to an updated `main`.
+- If PR automation is unavailable, push the branch and record the exact compare/PR URL, blocker, and manual merge instructions in the final handoff and project-memory files.
+- Keep a Markdown work log for every substantial branch under `docs/work/` with context, plan, progress, verification, and handoff notes.
+
 ## Phase Control
 
 Use only these phase states:
@@ -47,6 +57,7 @@ Rules:
 - `workers/search/`: Search-event ingestion, Count-Min Sketch snapshots, candidate ranking, and suggestion metrics.
 - `docs/plans/`: Phase plans for mobile, admin, and shared backend.
 - `docs/adr/`: Architecture decision records.
+- `docs/work/`: Per-branch context, progress, verification, and handoff logs.
 - `scripts/`: Repeatable local, CI, generation, and verification helpers.
 
 ## Commands

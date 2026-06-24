@@ -2,10 +2,10 @@
 
 ## Status
 
-- Admin phase: M0 - Discovery and planning
-- Phase status: PLACEHOLDER
-- Current implementation state: no Next.js admin application code exists yet.
-- Detail level: placeholder and dependency summary only, per M0 scope.
+- Admin phase: M1 - Monorepo and engineering foundation
+- Phase status: READY_FOR_REVIEW
+- Current implementation state: minimal Next.js admin shell exists.
+- Detail level: placeholder and dependency summary only; detailed admin feature planning remains deferred.
 
 ## Objective
 

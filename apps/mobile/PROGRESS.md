@@ -2,20 +2,22 @@
 
 ## Current Mobile Phase
 
-- Phase: M0 - Discovery and planning
+- Phase: M1 - Monorepo and engineering foundation
 - Status: READY_FOR_REVIEW
-- Last updated: `2026-06-25T02:45:17+06:00`
+- Last updated: `2026-06-25T03:17:45+06:00`
 - Updated by: Codex
 
 ## Phase Objective
 
-Initialize project-memory and mobile planning documents without creating production Flutter application code.
+Create the Flutter application shell, routing placeholder, dependency baseline, test setup, environment template, and verification evidence without building business feature screens.
 
 ## Approved Scope
 
-- Create and update Markdown project-memory files only.
-- Define mobile capabilities, phase gates, dependencies, testing expectations, and security constraints.
-- Do not create Flutter screens, platform config, generated contracts, migrations, Edge Functions, workers, or deployment files.
+- Create Flutter shell under `apps/mobile`.
+- Add foundation dependencies needed by later phases.
+- Add smoke tests and app structure.
+- Record verification results and handoff context.
+- Do not create catalog, auth, payment, reader, schema, Edge Function, or worker business implementation.
 
 ## Completed Tasks
 
@@ -24,19 +26,30 @@ Initialize project-memory and mobile planning documents without creating product
 - [x] Master phase plan initialized at `MASTER_PLAN.md`.
 - [x] Future Codex operating rules initialized at `AGENTS.md`.
 - [x] Mobile progress tracker initialized.
+- [x] Flutter shell scaffolded.
+- [x] Foundation dependencies installed.
+- [x] Mobile smoke checks run.
+- [x] Android debug build verified.
 
 ## Remaining Tasks
 
-- [ ] User reviews M0 files.
-- [ ] User approves M0 completion.
-- [ ] User approves M1 before Flutter app shell creation.
+- [x] M1 branch pushed and PR fallback recorded.
+- [ ] Merge M1 PR manually.
+- [ ] Stop before M2 database/contracts implementation.
 
 ## Changed Mobile Files
 
-| File | Change |
-|---|---|
-| `apps/mobile/PROGRESS.md` | Added initial mobile progress tracker. |
-| `docs/plans/MOBILE_APP_PLAN.md` | Added mobile product, architecture, security, localization, design-system, and phase plan. |
+| File                                                                        | Change                                                                              |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `apps/mobile/PROGRESS.md`                                                   | Updated M1 mobile progress tracker.                                                 |
+| `docs/plans/MOBILE_APP_PLAN.md`                                             | Updated mobile implementation state.                                                |
+| `apps/mobile/lib/main.dart`                                                 | Replaced counter app with ProviderScope bootstrap entrypoint.                       |
+| `apps/mobile/lib/src/app/chapter_house_app.dart`                            | Added `MaterialApp.router` shell.                                                   |
+| `apps/mobile/lib/src/routing/app_router.dart`                               | Added initial GoRouter route.                                                       |
+| `apps/mobile/lib/src/features/bootstrap/presentation/bootstrap_screen.dart` | Added foundation bootstrap screen.                                                  |
+| `apps/mobile/test/widget_test.dart`                                         | Added bootstrap smoke test.                                                         |
+| `apps/mobile/pubspec.yaml`                                                  | Added routing, Riverpod, Supabase, secure storage, and intl dependencies.           |
+| `apps/mobile/android/gradle.properties`                                     | Disabled Kotlin incremental compilation to avoid Windows cross-drive cache failure. |
 
 ## API Dependencies
 
@@ -59,36 +72,39 @@ Initialize project-memory and mobile planning documents without creating product
 
 ## Tests
 
-| Command | Result | Notes |
-|---|---|---|
-| `git status --short --branch` | Passed | Shows only new untracked M0 docs in the no-commit repository. |
-| `rg --files` | Passed | Lists all requested M0 Markdown files. |
-| `Test-Path` required files | Passed | All requested paths returned `True`. |
-| `git diff --check` | Passed | No whitespace errors reported. |
-| `flutter analyze` | Not applicable | No Flutter project exists yet. |
-| `flutter test` | Not applicable | No Flutter project exists yet. |
-| `flutter build apk --debug` | Not applicable | No Flutter project exists yet. |
+| Command                                   | Result | Notes                                                                                        |
+| ----------------------------------------- | ------ | -------------------------------------------------------------------------------------------- |
+| `dart format lib test`                    | Passed | Formatted mobile Dart files.                                                                 |
+| `flutter analyze`                         | Passed | No issues found.                                                                             |
+| `flutter test`                            | Passed | Bootstrap widget test passed.                                                                |
+| `flutter build apk --debug`               | Passed | Built debug APK after `flutter clean`, `flutter pub get`, and Kotlin incremental workaround. |
+| `flutter build ios --debug --no-codesign` | Failed | This Windows Flutter toolchain did not expose iOS build options.                             |
+| `flutter build ios --no-codesign`         | Failed | This Windows Flutter toolchain did not expose iOS build options.                             |
 
 ## Build Results
 
-- No mobile build was run because M0 does not create Flutter app code.
+- Android debug APK built at `apps/mobile/build/app/outputs/flutter-apk/app-debug.apk`.
+- iOS build was not available from this Windows Flutter toolchain.
 
 ## Platform-Specific Results
 
-- Android: not started.
-- iOS: not started.
+- Android: debug build passed.
+- iOS: deferred to macOS/release validation.
 
 ## Accessibility Status
 
-- Planned for M3 and M11; no UI exists yet.
+- Bootstrap shell uses standard Material semantics only.
+- Full accessibility implementation remains planned for M3 and M11.
 
 ## Localization Status
 
-- English/Bangla support planned; no l10n files exist yet.
+- English/Bangla support planned; no l10n implementation exists yet.
+- `intl` dependency is present for later localization/currency/date work.
 
 ## Theme Consistency Status
 
-- Five premium themes planned; no token files exist yet.
+- M1 uses a temporary Material seed color only.
+- Five premium themes remain planned for M3.
 
 ## Performance Notes
 
@@ -97,11 +113,11 @@ Initialize project-memory and mobile planning documents without creating product
 
 ## Known Limitations
 
-- The repo has no Flutter app code yet.
-- Supabase CLI is missing locally and must be addressed in M1.
+- Supabase CLI is missing globally, but `npx supabase` works from the repo.
 - Reader package/library selection is not approved yet.
 - OAuth and signing configuration are external setup items.
+- Android build emits plugin Built-in Kotlin migration warnings from dependencies.
 
 ## Next Action
 
-Review M0 docs and approve whether Codex may begin M1 foundation.
+Open `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`, merge M1 after review/checks, then stop before M2.

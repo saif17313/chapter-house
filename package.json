@@ -1,0 +1,30 @@
+{
+  "name": "chapter-house",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chapter House e-book platform monorepo.",
+  "workspaces": [
+    "apps/admin",
+    "packages/contracts"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "check:tools": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/check-tools.ps1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present"
+  },
+  "devDependencies": {
+    "prettier": "3.8.4"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "8.5.15"
+    }
+  },
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  }
+}
