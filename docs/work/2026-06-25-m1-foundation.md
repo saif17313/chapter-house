@@ -61,3 +61,7 @@
 - PR automation is blocked because `gh`/`hub` are missing and no `GH_TOKEN` or `GITHUB_TOKEN` is present.
 - Manual PR URL: `https://github.com/saif17313/chapter-house/pull/new/m1-foundation`.
 - Create the PR against `main`, merge it after review/checks, then return local `main` to the merged state.
+
+## CI Fixes
+
+- Replaced invalid `subosito/flutter-action@v3` with valid `subosito/flutter-action@v2` in `.github/workflows/ci.yml`.
