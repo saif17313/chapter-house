@@ -1,0 +1,1 @@
+-- M1 placeholder only. Canonical seed data begins in M2.

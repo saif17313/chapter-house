@@ -2,23 +2,32 @@
 
 ## Current Admin Phase
 
-- Phase: M0 - Discovery and planning
-- Status: PLACEHOLDER
-- Last updated: `2026-06-25T02:45:17+06:00`
+- Phase: M1 - Monorepo and engineering foundation
+- Status: READY_FOR_REVIEW
+- Last updated: `2026-06-25T03:17:45+06:00`
 - Updated by: Codex
 
 ## Objective
 
-Track future Next.js admin implementation progress. M0 creates only this placeholder and the dependency summary in `docs/plans/ADMIN_PANEL_PLAN.md`.
+Track the M1 Next.js admin shell and future admin implementation progress.
 
 ## Approved Scope
 
-- Placeholder progress file only.
-- No Next.js app code, admin routes, server actions, deployment config, or production admin features.
+- Create a minimal Next.js App Router shell.
+- Add TypeScript, ESLint, Vitest, and build scripts.
+- Add admin env template and smoke test.
+- Do not create catalog, payment review, content-processing, support, or configuration workflows yet.
+
+## Completed Tasks
+
+- [x] Next.js admin shell scaffolded.
+- [x] Admin env template added.
+- [x] Admin lint, test, and build scripts added.
+- [x] Admin smoke test passed.
 
 ## Dependency Summary
 
-- M1 must create the monorepo and admin shell.
+- M1 created the monorepo and admin shell.
 - M2 must define shared database schema, RLS, admin roles, storage policies, and contracts.
 - M7 requires finance-admin payment review workflows.
 - M8 requires content-processing operations.
@@ -26,15 +35,13 @@ Track future Next.js admin implementation progress. M0 creates only this placeho
 
 ## Tests
 
-| Command | Result | Notes |
-|---|---|---|
-| `git status --short --branch` | Passed | Shows only new untracked M0 docs in the no-commit repository. |
-| `rg --files` | Passed | Lists all requested M0 Markdown files. |
-| `git diff --check` | Passed | No whitespace errors reported. |
-| `npm run lint --workspace apps/admin` | Not applicable | No admin app exists yet. |
-| `npm test --workspace apps/admin` | Not applicable | No admin app exists yet. |
-| `npm run build --workspace apps/admin` | Not applicable | No admin app exists yet. |
+| Command                                   | Result | Notes                                  |
+| ----------------------------------------- | ------ | -------------------------------------- |
+| `npm run lint --workspaces --if-present`  | Passed | Admin ESLint passed.                   |
+| `npm run test --workspaces --if-present`  | Passed | Admin Vitest smoke test passed.        |
+| `npm run build --workspaces --if-present` | Passed | Admin Next.js production build passed. |
+| `npm audit --audit-level=moderate`        | Passed | Zero vulnerabilities.                  |
 
 ## Next Action
 
-Expand the admin plan after M1/M2 foundations are approved and created.
+Merge M1 foundation or record the PR fallback; expand the detailed admin plan after M2 foundations are approved and created.
